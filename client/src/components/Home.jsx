@@ -11,7 +11,7 @@ const Home = () => {
           className="w-full h-screen object-cover"
         />
         <Link to="login">
-          <button className="uppercase font-bold text-sm absolute py-2 top-10 left-10 border-white hover:bg-white hover:text-black border px-5 btn bg-black text-white">
+          <button className="wrapper uppercase font-bold text-sm absolute py-2 top-10 left-10 hover:bg-white px-5 btn bg-black text-white">
             Get Started
           </button>
         </Link>
