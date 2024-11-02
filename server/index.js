@@ -23,3 +23,5 @@ io.on("connection", (socket) => {
 server.listen(5174, () => {
   console.log("Server is Running");
 });
+
+module.exports = server; // Export the server for Vercel
