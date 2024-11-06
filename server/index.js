@@ -6,17 +6,24 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173", // Use CLIENT_URL for production, fallback for local
-    methods: ["GET", "POST"],
+    origin: "http://localhost:5173",
+    methods: ["POST", "GET"],
+    credentials: true,
   })
 );
 
 const server = http.createServer(app);
+
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: "http://localhost:5173",
     methods: ["POST", "GET"],
+    credentials: true,
   },
+});
+
+server.listen(5174, () => {
+  console.log("Server is running on port 5174");
 });
 
 io.on("connection", (socket) => {
@@ -25,5 +32,3 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("receive_message", data);
   });
 });
-
-module.exports = server; // Export server for Vercel

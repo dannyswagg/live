@@ -7,7 +7,7 @@ import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const socket = io.connect(import.meta.env.VITE_SOCKET_URL);
+const socket = io.connect("http://localhost:5174");
 
 function App() {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function App() {
     <>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={1500}
         hideProgressBar={false}
         closeOnClick={true}
         pauseOnHover={true}
