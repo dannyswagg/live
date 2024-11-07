@@ -6,18 +6,22 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["POST", "GET"],
+    origin: "*",
+    methods: ["GET"],
     credentials: true,
   })
 );
+
+app.get("/", (_, res) => {
+  res.send("hello world");
+});
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
-    methods: ["POST", "GET"],
+    origin: "*",
+    methods: "*",
     credentials: true,
   },
 });
