@@ -7,7 +7,7 @@ import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const socket = io.connect("http://localhost:5174");
+const socket = io.connect("http://localhost:3000");
 
 function App() {
   const navigate = useNavigate();

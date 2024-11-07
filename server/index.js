@@ -26,8 +26,8 @@ const io = new Server(server, {
   },
 });
 
-server.listen(5174, () => {
-  console.log("Server is running on port 5174");
+server.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });
 
 io.on("connection", (socket) => {
