@@ -20,7 +20,7 @@ const Login = () => {
         draggable={true}
         theme="dark"
       />
-      <div className="py-5 px-1 rounded-md w-[90%] p-4">
+      <div className="py-5 px-5 w-full">
         <h1 className="text-5xl"> Login Account</h1>
         <Formik
           initialValues={{ email: "", password: "" }}

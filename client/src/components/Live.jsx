@@ -24,12 +24,12 @@ function App() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setUserDetails(docSnap.data());
-          console.log("User details:", docSnap.data());
+          // console.log("User details:", docSnap.data());
         } else {
-          console.log("No such document!");
+          toast.error("User details not found");
         }
       } else {
-        console.log("User is not logged in");
+        toast.error("User is not logged");
       }
     });
   };
@@ -44,7 +44,7 @@ function App() {
       await auth.signOut();
       navigate("/");
     } catch (error) {
-      console.log("Error:", error.message);
+      toast.error("Error:", error.message);
     }
   };
 
@@ -78,19 +78,21 @@ function App() {
       />
       <div className="wrapper text-white text-center">
         <div className="flex flex-col justify-between h-screen py-[20px]">
-          <div className="messages flex justify-center items-center w-full relative">
-            <div className="flex flex-col text-center">
+          <div className="messages flex justify-between items-center w-full relative">
+            <div className="flex flex-col text-center w-full justify-center items-center">
               <h1 className="text-3xl md:text-5xl font-bold">Messages</h1>
             </div>
-            <p className="absolute right-2 -px-5 cursor-pointer text-md text-white font-bold">
-              {userDetails
-                ? userDetails.email.slice(0, 2).toUpperCase()
-                : "user"}
-            </p>
-            <FaPowerOff
-              onClick={handleLogout}
-              className="absolute right-10 cursor-pointer"
-            />
+            <div className="flex items-center pr-2">
+              <FaPowerOff
+                onClick={handleLogout}
+                className="cursor-pointer mr-2"
+              />
+              <p className="uppercase cursor-pointer text-md text-white font-bold ">
+                {userDetails
+                  ? userDetails.email.slice(0, 2).toUpperCase()
+                  : "user"}
+              </p>
+            </div>
           </div>
 
           <div className="input-container">
