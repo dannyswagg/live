@@ -83,7 +83,7 @@ input::placeholder {
   padding: 0;
   text-transform: uppercase;
   font-size: 12rem; /* Will adjust this for smaller screens */
-  color: #fff;
+  color: #f8f9fa;
   transform-style: preserve-3d;
   transition: 0.8s;
 }
@@ -110,7 +110,7 @@ input::placeholder {
 .center:hover h1 span:nth-child(3) {
   transform: translate(-50%, -50%) skewX(0deg);
   left: 0;
-  color: #fff;
+  color: #f8f9fa;
 }
 
 /* Responsive Styles */

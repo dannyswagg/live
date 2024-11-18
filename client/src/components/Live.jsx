@@ -87,10 +87,10 @@ function App() {
                 onClick={handleLogout}
                 className="cursor-pointer mr-2"
               />
-              <p className="uppercase cursor-pointer text-md text-white font-bold ">
+              <p className="uppercase cursor-pointer text-md text-white font-bold bg-black rounded-full p-2">
                 {userDetails
                   ? userDetails.email.slice(0, 2).toUpperCase()
-                  : "user"}
+                  : "OO"}
               </p>
             </div>
           </div>
@@ -114,7 +114,7 @@ function App() {
               }}
             />
             <button
-              className="py-[10px] px-2 bg-transparent text-white border border-white outline-0"
+              className="py-[10px] px-2 bg-transparent hover:bg-black text-white border border-white outline-0"
               onClick={sendMessage}
             >
               Send
