@@ -52,23 +52,39 @@ const Register = () => {
           }}
           onSubmit={async (values, { setSubmitting }) => {
             try {
-              await createUserWithEmailAndPassword(
+              // Create user with email and password
+              const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 values.email,
                 values.password
               );
-              const user = auth.currentUser;
-              console.log(user);
+
+              // Get the authenticated user from userCredential
+              const user = userCredential.user;
+
               if (user) {
+                // Add user data to Firestore
                 await setDoc(doc(db, "Users", user.uid), {
                   email: values.email,
                   name: values.name,
                   phone: values.phone,
                 });
+
+                toast.success("User created successfully!");
+              } else {
+                toast.error("User registration failed. Please try again.");
               }
-              toast.success("User created successfully!");
             } catch (error) {
-              toast.error(error.message);
+              // Handle errors from Firebase
+              let errorMessage = "An unknown error occurred.";
+              if (error.code === "auth/email-already-in-use") {
+                errorMessage = "This email is already in use.";
+              } else if (error.code === "auth/weak-password") {
+                errorMessage = "The password is too weak.";
+              } else if (error.code === "auth/invalid-email") {
+                errorMessage = "Invalid email address.";
+              }
+              toast.error(errorMessage);
             }
             setSubmitting(false);
           }}
@@ -92,6 +108,7 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
+                  disabled={isSubmitting}
                 />
                 <p className="text-xs text-red-600">
                   {errors.name && touched.name && errors.name}
@@ -106,6 +123,7 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
+                  disabled={isSubmitting}
                 />
                 <p className="text-xs text-red-600">
                   {errors.email && touched.email && errors.email}
@@ -120,6 +138,7 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.phone}
+                  disabled={isSubmitting}
                 />
                 <p className="text-xs text-red-600">
                   {errors.phone && touched.phone && errors.phone}
@@ -134,6 +153,7 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
+                  disabled={isSubmitting}
                 />
                 <p className="text-xs text-red-600">
                   {errors.password && touched.password && errors.password}
@@ -144,7 +164,7 @@ const Register = () => {
                 disabled={isSubmitting}
                 className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black"
               >
-                Create
+                {isSubmitting ? "Creating..." : "Create"}
               </button>
             </form>
           )}

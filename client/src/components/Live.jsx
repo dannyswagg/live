@@ -7,7 +7,7 @@ import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://localhost:5174");
 
 function App() {
   const navigate = useNavigate();
@@ -15,54 +15,68 @@ function App() {
   const [messageReceived, setMessageReceived] = useState("");
   const [userDetails, setUserDetails] = useState(null);
 
-  // Fetch user data from Firestore
-  const fetchUserData = async () => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        console.log("User found:", user);
+  // Function to fetch user data
+  const fetchUserData = async (user) => {
+    if (user) {
+      try {
         const docRef = doc(db, "Users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setUserDetails(docSnap.data());
-          // console.log("User details:", docSnap.data());
         } else {
           toast.error("User details not found");
         }
-      } else {
-        toast.error("User is not logged");
+      } catch (error) {
+        toast.error("Error fetching user data: " + error.message);
       }
-    });
+    }
   };
 
-  // Run fetchUserData when the component mounts
+  // Set up auth listener and fetch user data once authenticated
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchUserData(user);
+      } else {
+        toast.error("User is not logged in");
+        navigate("/login"); // Redirect to login if user is not authenticated
+      }
+    });
+
+    // Cleanup the auth listener on component unmount
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      navigate("/");
+      navigate("/"); // Redirect to homepage after logout
     } catch (error) {
-      toast.error("Error:", error.message);
+      toast.error("Error logging out: " + error.message);
     }
   };
 
   // Function to send a message via socket
   const sendMessage = () => {
     if (message.trim() !== "") {
-      // Ensure the message is not just whitespace
       socket.emit("send_message", { message });
-      setMessage(""); // Clear the input after sending
+      setMessage(""); // Clear input after sending
     }
   };
 
-  // Listen for incoming messages
+  // Listen for incoming messages via socket
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    const messageListener = (data) => {
       setMessageReceived(data.message);
       toast.success(`New message: ${data.message}`);
-    });
+    };
+
+    socket.on("receive_message", messageListener);
+
+    // Cleanup the socket listener on component unmount
+    return () => {
+      socket.off("receive_message", messageListener);
+    };
   }, []);
 
   return (
@@ -104,9 +118,7 @@ function App() {
               type="text"
               placeholder="Send message"
               value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
+              onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   sendMessage();
