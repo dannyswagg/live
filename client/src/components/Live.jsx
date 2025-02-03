@@ -12,7 +12,7 @@ const socket = io.connect("http://localhost:5174");
 function App() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
+  const [messages, setMessages] = useState([]); // Array to store all messages
   const [userDetails, setUserDetails] = useState(null);
 
   // Function to fetch user data
@@ -59,23 +59,29 @@ function App() {
   // Function to send a message via socket
   const sendMessage = () => {
     if (message.trim() !== "") {
-      socket.emit("send_message", { message });
-      setMessage(""); // Clear input after sending
+      socket.emit("send_message", { message, isSender: true });
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { message, isSender: true },
+      ]); // Update local state
+      setMessage(""); // Clear input
     }
   };
 
-  // Listen for incoming messages via socket
+  // Listen for message history and incoming messages
   useEffect(() => {
-    const messageListener = (data) => {
-      setMessageReceived(data.message);
+    const receiveMessage = (data) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { message: data.message, isSender: false },
+      ]);
       toast.success(`New message: ${data.message}`);
     };
 
-    socket.on("receive_message", messageListener);
+    socket.on("receive_message", receiveMessage);
 
-    // Cleanup the socket listener on component unmount
     return () => {
-      socket.off("receive_message", messageListener);
+      socket.off("receive_message", receiveMessage);
     };
   }, []);
 
@@ -109,10 +115,21 @@ function App() {
             </div>
           </div>
 
+          <div className="messages-container overflow-y-auto h-[80%] w-[90%] sm:w-[55%] md:[w-50%] mx-auto">
+            {/* Render all messages */}
+            {messages.map((msg, index) => (
+              <p
+                key={index}
+                className={`${
+                  msg.isSender ? "sent-message" : "received-message"
+                }`}
+              >
+                {msg.message}
+              </p>
+            ))}
+          </div>
+
           <div className="input-container">
-            <p className="py-1 px-10 bg-transparent w-fit my-3 mx-auto rounded-md">
-              {messageReceived}
-            </p>
             <input
               className="w-[80%] sm:w-2/4 outline-0 border border-white text-white bg-transparent"
               type="text"

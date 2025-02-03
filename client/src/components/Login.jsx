@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaGear } from "react-icons/fa6";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -96,7 +97,13 @@ const Login = () => {
                 disabled={isSubmitting}
                 className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black"
               >
-                Login
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    Login <FaGear className="gear-icon text-xs animate-spin " />
+                  </span>
+                ) : (
+                  <span className="default">Login</span>
+                )}
               </button>
             </form>
           )}
@@ -105,7 +112,7 @@ const Login = () => {
           <p className="text-xs text-red-600 py-1">
             Don't have an account? <br />
             <Link to="/signup" className="font-bold text-green-500">
-              Create one.
+              Create here.
             </Link>
           </p>
         </div>

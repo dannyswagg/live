@@ -22,13 +22,23 @@ const io = new Server(server, {
   },
 });
 
+// In-memory storage for message history (for production, use a database)
+const messageHistory = [];
+
 // Handle incoming socket connections
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
+  // Send the message history to the newly connected user
+  // socket.emit("load_history", messageHistory);
+
   // Handle receiving and broadcasting messages
   socket.on("send_message", (data) => {
-    socket.broadcast.emit("receive_message", data);
+    // Add the new message to the history
+    messageHistory.push(data);
+
+    // Broadcast the message to all connected clients
+    io.emit("receive_message", data); // Emit to all, including the sender
   });
 
   // Handle user disconnection

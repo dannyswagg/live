@@ -135,3 +135,40 @@ input::placeholder {
     left: -20px; /* Adjust left position for mobile */
   }
 }
+
+/* Wrapper for the messaging area */
+.messages-container {
+  display: flex;
+  flex-direction: column; /* Stacks messages vertically */
+  justify-content: flex-start; /* Aligns messages at the top */
+  align-items: flex-start; /* Aligns messages to the left */
+  padding: 10px;
+  height: 70%; /* Adjust this to fit your layout */
+  max-height: 70vh; /* Ensures the container doesn't grow too large */
+  overflow-y: auto; /* Adds vertical scrolling if messages exceed the container height */
+  background-color: transparent; /* Dark background for modern messaging UI */
+}
+
+/* Each individual message bubble */
+.messages-container p {
+  background-color: #333; /* Message bubble background color */
+  color: white; /* Text color */
+  padding: 8px 12px; /* Padding inside the bubble */
+  border-radius: 12px; /* Rounded corners for bubble-like appearance */
+  margin-bottom: 8px; /* Space between messages */
+  word-wrap: break-word;
+}
+
+/* Styling for sent messages (right-aligned) */
+.messages-container .sent-message {
+  align-self: flex-end; /* Aligns sent messages to the right */
+  background-color: #0a84ff; /* Blue color for sent messages */
+  color: white; /* White text for contrast */
+}
+
+/* Styling for received messages (left-aligned) */
+.messages-container .received-message {
+  align-self: flex-start; /* Aligns received messages to the left */
+  background-color: #000; /* Darker gray for received messages */
+  color: white; /* White text for contrast */
+}

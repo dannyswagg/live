@@ -6,8 +6,11 @@ import { auth, db } from "./Firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaGear } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   return (
     <>
       <ToastContainer
@@ -71,6 +74,9 @@ const Register = () => {
                 });
 
                 toast.success("User created successfully!");
+                setTimeout(() => {
+                  navigate("/live");
+                }, 500);
               } else {
                 toast.error("User registration failed. Please try again.");
               }
@@ -164,7 +170,14 @@ const Register = () => {
                 disabled={isSubmitting}
                 className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black"
               >
-                {isSubmitting ? "Creating..." : "Create"}
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    Create{" "}
+                    <FaGear className="gear-icon text-xs animate-spin " />
+                  </span>
+                ) : (
+                  <span className="default">Create</span>
+                )}
               </button>
             </form>
           )}
