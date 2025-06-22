@@ -95,14 +95,17 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black"
+                aria-busy={isSubmitting}
+                className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
-                  <span className="flex items-center justify-center">
-                    Login <FaGear className="gear-icon text-xs animate-spin " />
+                  <span className="flex items-center justify-center gap-1">
+                    Login <FaGear className="gear-icon text-xs" />
                   </span>
                 ) : (
-                  <span className="default">Login</span>
+                  <span className="default flex items-center justify-center">
+                    Login
+                  </span>
                 )}
               </button>
             </form>

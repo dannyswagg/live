@@ -12,7 +12,7 @@ const socket = io.connect("http://localhost:5174");
 function App() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]); // Array to store all messages
+  const [messages, setMessages] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
 
   // Function to fetch user data
@@ -58,32 +58,44 @@ function App() {
 
   // Function to send a message via socket
   const sendMessage = () => {
-    if (message.trim() !== "") {
-      socket.emit("send_message", { message, isSender: true });
+    if (message.trim() !== "" && userDetails) {
+      const timestamp = new Date().toISOString();
+      // alert(timestamp);
+      const data = {
+        message,
+        senderId: userDetails.email, timestamp// or userDetails.uid
+      };
+
+      socket.emit("send_message", data);
+
       setMessages((prevMessages) => [
         ...prevMessages,
-        { message, isSender: true },
-      ]); // Update local state
+        { message, isSender: true, timestamp },
+      ]);
+
       setMessage(""); // Clear input
     }
   };
 
   // Listen for message history and incoming messages
-  useEffect(() => {
-    const receiveMessage = (data) => {
+useEffect(() => {
+  const receiveMessage = (data) => {
+    // Only add if not the current user's message
+    if (data.senderId !== userDetails?.email) {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { message: data.message, isSender: false },
+        { message: data.message, isSender: false, timestamp: data.timestamp },
       ]);
-      toast.success(`New message: ${data.message}`);
-    };
+      // toast.success(`New message: ${data.message}`);
+    }
+  };
 
-    socket.on("receive_message", receiveMessage);
+  socket.on("receive_message", receiveMessage);
 
-    return () => {
-      socket.off("receive_message", receiveMessage);
-    };
-  }, []);
+  return () => {
+    socket.off("receive_message", receiveMessage);
+  };
+}, [userDetails]); 
 
   return (
     <>
@@ -125,6 +137,12 @@ function App() {
                 }`}
               >
                 {msg.message}
+                <span className="text-[0.50rem] ml-2 text-white mt-1">
+                  {new Date(msg.timestamp).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
               </p>
             ))}
           </div>
