@@ -131,11 +131,11 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className="messages-container overflow-y-auto h-[80%] w-[90%] sm:w-[55%] md:[w-50%] mx-auto">
+          <div className="messages-container hide-scrollbar my-1 overflow-y-auto h-full md:h-[80%] px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto">
             {/* Render all messages */}
             {messages.map((msg, index) => (
               <p
-                key={         index}
+                key={index}
                 className={`${
                   msg.isSender ? "sent-message" : "received-message"
                 }`}

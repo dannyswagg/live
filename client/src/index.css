@@ -142,11 +142,10 @@ input::placeholder {
   flex-direction: column; /* Stacks messages vertically */
   justify-content: flex-start; /* Aligns messages at the top */
   align-items: flex-start; /* Aligns messages to the left */
-  padding: 10px;
-  height: 70%; /* Adjust this to fit your layout */
-  max-height: 70vh; /* Ensures the container doesn't grow too large */
-  overflow-y: auto; /* Adds vertical scrolling if messages exceed the container height */
-  background-color: transparent; /* Dark background for modern messaging UI */
+  /* height: 70%; 
+  max-height: 70vh;  */
+  overflow-y: auto; 
+  background-color: transparent; 
 }
 
 /* Each individual message bubble */
@@ -165,6 +164,7 @@ input::placeholder {
   background-color: #003153;
   background-image: linear-gradient(315deg, #003153 0%, #0abab5 74%);
   color: white; /* White text for contrast */
+  text-align: start;
 }
 
 /* Styling for received messages (left-aligned) */
@@ -173,4 +173,14 @@ input::placeholder {
   color: white; /* White text for contrast */
   background-color: #2d3436;
   background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+}
+
+.hide-scrollbar {
+  overflow: auto;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
