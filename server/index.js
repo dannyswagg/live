@@ -9,16 +9,18 @@ const server = http.createServer(app);
 // Configure CORS to allow only specific origins
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend URL
+    origin: "https://live-three-psi.vercel.app", // frontend URL
     methods: ["GET", "POST"],
+    credentials: true,
   })
 );
 
 // Initialize Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // Allowing frontend only from this origin
+    origin: "https://live-three-psi.vercel.app", 
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
@@ -48,8 +50,9 @@ io.on("connection", (socket) => {
 });
 
 // Start the server
-server.listen(5174, () => {
-  console.log("Server is running on port 5174");
+const PORT = process.env.PORT || 5174;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = server; // Export server, useful for testing or integration

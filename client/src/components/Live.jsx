@@ -7,7 +7,11 @@ import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const socket = io.connect("http://localhost:5174");
+// const socket = io.connect("https://live-1-ctta.onrender.com");
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
+  transports: ["websocket"],
+  withCredentials: true,
+});
 
 function App() {
   const navigate = useNavigate();
@@ -131,7 +135,7 @@ useEffect(() => {
             {/* Render all messages */}
             {messages.map((msg, index) => (
               <p
-                key={index}
+                key={         index}
                 className={`${
                   msg.isSender ? "sent-message" : "received-message"
                 }`}
