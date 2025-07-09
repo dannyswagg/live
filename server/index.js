@@ -9,7 +9,7 @@ const server = http.createServer(app);
 // Configure CORS to allow only specific origins
 app.use(
   cors({
-    origin: "https://live-three-psi.vercel.app", // frontend URL
+    origin: "https://live-three-psi.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -18,7 +18,7 @@ app.use(
 // Initialize Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "https://live-three-psi.vercel.app", 
+    origin: "https://live-three-psi.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },

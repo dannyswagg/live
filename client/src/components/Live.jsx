@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTheme } from "../context/ThemeContext";
 
-// const socket = io.connect("https://live-1-ctta.onrender.com");
+// const socket = io.connect("http://localhost:5174");
 const socket = io(import.meta.env.VITE_SOCKET_URL, {
   transports: ["websocket"],
   withCredentials: true,
@@ -18,6 +19,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
+  const { theme, changeTheme, themeLoaded } = useTheme();
 
   // Function to fetch user data
   const fetchUserData = async (user) => {
@@ -112,7 +114,7 @@ useEffect(() => {
         draggable={true}
         theme="dark"
       />
-      <div className="wrapper text-white text-center">
+      <div className="wrapper bg-hero-gradient text-white text-center">
         <div className="flex flex-col justify-between h-screen py-[20px]">
           <div className="messages flex justify-between items-center w-full relative">
             <div className="flex flex-col text-center w-full justify-center items-center">
@@ -128,26 +130,61 @@ useEffect(() => {
                   ? userDetails.email.slice(0, 2).toUpperCase()
                   : "OO"}
               </p>
+              {/* {themeLoaded && (
+                <label className="switch absolute top-2 right-32">
+                  <input
+                    type="checkbox"
+                    onChange={changeTheme}
+                    checked={theme === "dark"}
+                  />
+                  <span className="slider w-[55px] h-[30px]"></span>
+                </label>
+              )} */}
+              <div className="dropdown dropdown-end dropdown-hover">
+                <p
+                  tabIndex={0}
+                  role="button"
+                  className="uppercase cursor-pointer ml-2 text-md text-white font-bold bg-black rounded-full p-2"
+                >
+                  CR
+                </p>
+
+                <div
+                  tabIndex={0}
+                  className="dropdown-content menu bg-transparent text-white z-[1] w-52 p-2"
+                >
+                  <input
+                    className="bg-transparent border outline-none border-white text-white"
+                    type="text"
+                    placeholder="Enter room"
+                  />
+                </div>
+              </div>
+              <div className="ml-2" onClick={changeTheme}>
+                <h6 className="uppercase cursor-pointer text-md text-white font-bold bg-black w-10 rounded-full p-2">
+                  {theme === "light" ? "D" : "L"}
+                </h6>
+              </div>
             </div>
           </div>
 
           <div className="messages-container hide-scrollbar my-1 overflow-y-auto h-full md:h-[80%] px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto">
             {/* Render all messages */}
             {messages.map((msg, index) => (
-              <p
+              <div
                 key={index}
-                className={`${
-                  msg.isSender ? "sent-message" : "received-message"
-                }`}
+                className={`chat ${msg.isSender ? "chat-end" : "chat-start"}`}
               >
-                {msg.message}
-                <span className="text-[0.50rem] ml-2 text-white mt-1">
+                <div className="chat-bubble bg-black text-white">
+                  {msg.message}
+                </div>
+                <div className="chat-footer opacity-50 text-xs text-white mt-1">
                   {new Date(msg.timestamp).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
-                </span>
-              </p>
+                </div>
+              </div>
             ))}
           </div>
 

@@ -22,7 +22,7 @@ const Login = () => {
         theme="dark"
       />
       <div className="py-5 px-5 w-full">
-        <h1 className="text-5xl"> Login Account</h1>
+        <h1 className="text-4xl md:text-5xl dark:text-pink"> Login Account</h1>
         <Formik
           initialValues={{ email: "", password: "" }}
           validate={(values) => {
@@ -65,7 +65,7 @@ const Login = () => {
             <form onSubmit={handleSubmit} className="flex flex-col">
               <div className="my-3">
                 <input
-                  className="border border-black rounded-md outline-none w-full text-sm"
+                  className="border bg-transparent border-black rounded-md outline-none w-full focus:border-pink md:w-[70%] text-sm dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="email"
                   name="email"
                   onChange={handleChange}
@@ -73,13 +73,13 @@ const Login = () => {
                   value={values.email}
                   placeholder="Enter email"
                 />
-                <p className="text-xs text-red-600">
+                <p className="text-xs text-pink">
                   {errors.email && touched.email && errors.email}
                 </p>
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black rounded-md outline-none w-full text-sm"
+                  className="bg-transparent border border-black rounded-md outline-none focus:border-pink w-full md:w-[70%] text-sm dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="password"
                   name="password"
                   onChange={handleChange}
@@ -88,7 +88,7 @@ const Login = () => {
                   placeholder="Enter password"
                   autoComplete="off"
                 />
-                <p className="text-xs text-red-600">
+                <p className="text-xs text-pink">
                   {errors.password && touched.password && errors.password}
                 </p>
               </div>
@@ -96,11 +96,11 @@ const Login = () => {
                 type="submit"
                 disabled={isSubmitting}
                 aria-busy={isSubmitting}
-                className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black disabled:opacity-60 disabled:cursor-not-allowed"
+                className="bg-black text-white px-2 py-2 btn border w-28 hover:bg-pink hover:text-white hover:border-pink disabled:cursor-not-allowed disabled:!bg-black disabled:text-white disabled:border-black dark:border-pink rounded-none"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-1">
-                    Login <FaGear className="gear-icon text-xs" />
+                    Login <FaGear className="gear-icon animate-spin text-xs" />
                   </span>
                 ) : (
                   <span className="default flex items-center justify-center">
@@ -112,10 +112,10 @@ const Login = () => {
           )}
         </Formik>
         <div className="mt-5">
-          <p className="text-xs text-red-600 py-1">
+          <p className="text-xs text-pink py-1">
             Don't have an account? <br />
-            <Link to="/signup" className="font-bold text-green-500">
-              Create here.
+            <Link to="/signup" className="font-bold text-black dark:text-white">
+              Create.
             </Link>
           </p>
         </div>

@@ -6,7 +6,7 @@ import { auth, db } from "./Firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaGear } from "react-icons/fa6";
+import { FaWrench } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -23,7 +23,7 @@ const Register = () => {
         theme="dark"
       />
       <div className="py-5 px-5 w-full">
-        <h1 className="text-5xl">Create Account</h1>
+        <h1 className="text-4xl md:text-5xl dark:text-pink">Create Account</h1>
         <Formik
           initialValues={{ name: "", email: "", phone: "", password: "" }}
           validate={(values) => {
@@ -107,73 +107,73 @@ const Register = () => {
             <form onSubmit={handleSubmit} className="flex flex-col">
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black rounded-md outline-none w-full"
+                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="text"
                   name="name"
-                  placeholder="Name"
+                  placeholder="Your name"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-red-600">
+                <p className="text-xs text-pink">
                   {errors.name && touched.name && errors.name}
                 </p>
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black rounded-md outline-none w-full"
+                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="email"
                   name="email"
-                  placeholder="Email"
+                  placeholder="Your email"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-red-600">
+                <p className="text-xs text-pink">
                   {errors.email && touched.email && errors.email}
                 </p>
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black rounded-md outline-none w-full"
+                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="text"
                   name="phone"
-                  placeholder="Phone"
+                  placeholder="Phone No."
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.phone}
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-red-600">
+                <p className="text-xs text-pink">
                   {errors.phone && touched.phone && errors.phone}
                 </p>
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black rounded-md outline-none w-full"
+                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Create password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-red-600">
+                <p className="text-xs text-pink">
                   {errors.password && touched.password && errors.password}
                 </p>
               </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-black text-white px-2 py-2 btn border w-32 hover:bg-white hover:text-black hover:border-black"
+                className="bg-black text-white px-2 py-2 btn border w-28 hover:bg-pink hover:text-white hover:border-pink disabled:cursor-not-allowed disabled:!bg-black disabled:text-white disabled:border-black"
               >
                 {isSubmitting ? (
-                  <span className="flex items-center justify-center">
-                    Create{" "}
-                    <FaGear className="gear-icon text-xs animate-spin " />
+                  <span className="flex items-center justify-center gap-1">
+                    Create
+                    <FaWrench className="text-xs animate-bounce" />
                   </span>
                 ) : (
                   <span className="default">Create</span>
@@ -183,11 +183,11 @@ const Register = () => {
           )}
         </Formik>
         <div className="mt-5">
-          <p className="text-xs">
+          <p className="text-xs dark:text-white">
             Already have an account?
             <br />
             <Link to="/login" className="font-bold text-green-500">
-              Login now!
+              Login Here.
             </Link>
           </p>
         </div>
