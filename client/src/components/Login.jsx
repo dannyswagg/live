@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import { auth } from "./Firebase";
@@ -22,7 +21,7 @@ const Login = () => {
         theme="dark"
       />
       <div className="py-5 px-5 w-full">
-        <h1 className="text-4xl md:text-5xl dark:text-pink"> Login Account</h1>
+        <h1 className="text-4xl md:text-5xl text-black dark:text-pink"> Login Account</h1>
         <Formik
           initialValues={{ email: "", password: "" }}
           validate={(values) => {

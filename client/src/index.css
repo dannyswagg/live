@@ -59,7 +59,6 @@ input::placeholder {
   border-bottom-right-radius: 7px;
   border-top-right-radius: 7px;
 }
-/* Live animation text */
 .center {
   transform: perspective(1000px) translate(-50%, -50%);
   transform: skewY(10deg);
@@ -67,13 +66,11 @@ input::placeholder {
   position: relative;
 }
 
-/* Hover Effect */
 .center:hover {
   transform: perspective(1000px) translate(-50%, -50%);
   transform: skewY(0deg);
 }
 
-/* Main Heading Span Styles */
 .center h1 span {
   position: absolute;
   top: 0;
@@ -82,7 +79,7 @@ input::placeholder {
   margin: 0;
   padding: 0;
   text-transform: uppercase;
-  font-size: 12rem; /* Will adjust this for smaller screens */
+  font-size: 12rem;
   color: #f8f9fa;
   transform-style: preserve-3d;
   transition: 0.8s;
@@ -113,28 +110,22 @@ input::placeholder {
   color: #f8f9fa;
 }
 
-/* Theme css starts here */
 .switch {
   display: block;
   --width-of-switch: 3.5em;
   --height-of-switch: 2em;
-  /* size of sliding icon -- sun and moon */
   --size-of-icon: 1.4em;
-  /* it is like a inline-padding of switch */
   --slider-offset: 0.3em;
-  /* position: relative; */
   width: var(--width-of-switch);
   height: var(--height-of-switch);
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -168,31 +159,29 @@ input:checked + .slider {
 input:checked + .slider:before {
   left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
   background: #303136;
-  /* change the value of second inset in box-shadow to change the angle and direction of the moon  */
   box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
 }
-/* Theme css ends here */
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .center h1 span {
-    font-size: 100px; /* Adjust font size for tablets */
+    font-size: 100px;
   }
 }
 
 @media (max-width: 480px) {
   .center {
     transform: perspective(500px) translate(-50%, -50%);
-    transform: skewY(5deg); /* Reduced skew for smaller screens */
+    transform: skewY(5deg);
   }
 
   .center h1 span {
-    font-size: 50px; /* Adjust font size for mobile */
+    font-size: 50px;
   }
 
   .center h1 span:nth-child(2),
   .center h1 span:nth-child(3) {
-    left: -20px; /* Adjust left position for mobile */
+    left: -20px;
   }
 }
 

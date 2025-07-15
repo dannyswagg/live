@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -6,7 +5,7 @@ const Home = () => {
     <>
       <div className="w-full relative p-5 bg-white dark:bg-black transition-colors duration-700 ease-in-out">
         <div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold dark:text-white">
+          <h1 className="text-3xl sm:text-5xl text-black md:text-6xl lg:text-7xl xl:text-8xl font-bold dark:text-white">
             Chat. <br />A<span className="text-pink">non</span>ymously.
             <br /> LIV<span className="text-pink">E.</span>
           </h1>

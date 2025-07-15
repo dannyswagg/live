@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -23,7 +22,7 @@ const Register = () => {
         theme="dark"
       />
       <div className="py-5 px-5 w-full">
-        <h1 className="text-4xl md:text-5xl dark:text-pink">Create Account</h1>
+        <h1 className="text-4xl md:text-5xl dark:text-pink text-black">Create Account</h1>
         <Formik
           initialValues={{ name: "", email: "", phone: "", password: "" }}
           validate={(values) => {
@@ -183,7 +182,7 @@ const Register = () => {
           )}
         </Formik>
         <div className="mt-5">
-          <p className="text-xs dark:text-white">
+          <p className="text-xs dark:text-white text-black">
             Already have an account?
             <br />
             <Link to="/login" className="font-bold text-green-500">

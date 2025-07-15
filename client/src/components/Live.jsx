@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import { auth, db } from "./Firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -7,6 +7,8 @@ import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTheme } from "../context/ThemeContext";
+import { FaMoon } from "react-icons/fa6";
+import { FaSun } from "react-icons/fa";
 
 // const socket = io.connect("http://localhost:5174");
 const socket = io(import.meta.env.VITE_SOCKET_URL, {
@@ -15,6 +17,7 @@ const socket = io(import.meta.env.VITE_SOCKET_URL, {
 });
 
 function App() {
+  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -56,7 +59,7 @@ function App() {
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      navigate("/"); // Redirect to homepage after logout
+      navigate("/");
     } catch (error) {
       toast.error("Error logging out: " + error.message);
     }
@@ -69,7 +72,7 @@ function App() {
       // alert(timestamp);
       const data = {
         message,
-        senderId: userDetails.email, timestamp// or userDetails.uid
+        senderId: userDetails.email, timestamp
       };
 
       socket.emit("send_message", data);
@@ -83,16 +86,20 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   // Listen for message history and incoming messages
 useEffect(() => {
   const receiveMessage = (data) => {
-    // Only add if not the current user's message
     if (data.senderId !== userDetails?.email) {
       setMessages((prevMessages) => [
         ...prevMessages,
         { message: data.message, isSender: false, timestamp: data.timestamp },
       ]);
-      // toast.success(`New message: ${data.message}`);
     }
   };
 
@@ -114,13 +121,16 @@ useEffect(() => {
         draggable={true}
         theme="dark"
       />
-      <div className="wrapper bg-hero-gradient text-white text-center">
-        <div className="flex flex-col justify-between h-screen py-[20px]">
-          <div className="messages flex justify-between items-center w-full relative">
-            <div className="flex flex-col text-center w-full justify-center items-center">
+      <div className="wrapper bg-hero-gradient text-white text-center h-screen">
+        <div className="flex flex-col justify-between h-full py-3">
+          <nav className="messages flex items-center w-full relative px-4">
+            {/* Centered Heading */}
+            <div className="absolute md:left-1/2 left-1 md:transform transform-none md:-translate-x-1/2 -translate-x-0">
               <h1 className="text-3xl md:text-5xl font-bold">Messages</h1>
             </div>
-            <div className="flex items-center pr-2">
+
+            {/* Icons on the right */}
+            <div className="flex items-center ml-auto space-x-2">
               <FaPowerOff
                 onClick={handleLogout}
                 className="cursor-pointer mr-2"
@@ -130,16 +140,6 @@ useEffect(() => {
                   ? userDetails.email.slice(0, 2).toUpperCase()
                   : "OO"}
               </p>
-              {/* {themeLoaded && (
-                <label className="switch absolute top-2 right-32">
-                  <input
-                    type="checkbox"
-                    onChange={changeTheme}
-                    checked={theme === "dark"}
-                  />
-                  <span className="slider w-[55px] h-[30px]"></span>
-                </label>
-              )} */}
               <div className="dropdown dropdown-end dropdown-hover">
                 <p
                   tabIndex={0}
@@ -148,27 +148,29 @@ useEffect(() => {
                 >
                   CR
                 </p>
-
                 <div
                   tabIndex={0}
                   className="dropdown-content menu bg-transparent text-white z-[1] w-52 p-2"
                 >
                   <input
-                    className="bg-transparent border outline-none border-white text-white"
+                    className="bg-transparent border outline-none border-white placeholder:text-white"
                     type="text"
                     placeholder="Enter room"
                   />
                 </div>
               </div>
               <div className="ml-2" onClick={changeTheme}>
-                <h6 className="uppercase cursor-pointer text-md text-white font-bold bg-black w-10 rounded-full p-2">
-                  {theme === "light" ? "D" : "L"}
-                </h6>
+                <div className="uppercase cursor-pointer text-md transition-colors duration-700 ease-in-out text-white font-bold bg-black w-10 h-10 flex items-center justify-center rounded-full p-2">
+                  {theme === "light" ? <FaMoon /> : <FaSun />}
+                </div>
               </div>
             </div>
-          </div>
+          </nav>
 
-          <div className="messages-container hide-scrollbar my-1 overflow-y-auto h-full md:h-[80%] px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto">
+          <div
+            ref={messagesEndRef}
+            className="messages-container hide-scrollbar my-1 overflow-y-auto h-full md:h-[80%] px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto"
+          >
             {/* Render all messages */}
             {messages.map((msg, index) => (
               <div
@@ -186,11 +188,12 @@ useEffect(() => {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef}></div>
           </div>
 
           <div className="input-container">
             <input
-              className="w-[80%] sm:w-2/4 outline-0 border border-white text-white bg-transparent"
+              className="w-[80%] sm:w-2/4 outline-0 border border-white placeholder:text-white bg-transparent"
               type="text"
               placeholder="Send message"
               value={message}
