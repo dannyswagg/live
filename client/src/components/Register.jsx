@@ -167,7 +167,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-black text-white px-2 py-2 btn border w-28 hover:bg-pink hover:text-white hover:border-pink disabled:cursor-not-allowed disabled:!bg-black disabled:text-white disabled:border-black"
+                className="bg-black text-white text-sm px-2 py-2 bttn border w-28 hover:bg-pink hover:text-white hover:border-pink disabled:cursor-not-allowed disabled:!bg-black disabled:text-white disabled:border-black"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-1">

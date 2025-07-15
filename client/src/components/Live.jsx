@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import io from "socket.io-client";
+import socket from "./Socket";
 import { auth, db } from "./Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +11,7 @@ import { FaMoon } from "react-icons/fa6";
 import { FaSun } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 
-// const socket = io.connect("http://localhost:5174");
-const socket = io(import.meta.env.VITE_SOCKET_URL, {
-  transports: ["websocket"],
-  withCredentials: true,
-});
+
 
 function App() {
   const textareaRef = useRef(null);
@@ -57,14 +53,14 @@ function App() {
     // Cleanup the auth listener on component unmount
     return () => unsubscribe();
   }, [navigate]);
-
-    useEffect(() => {
-      if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height =
-          textareaRef.current.scrollHeight + "px";
-      }
-    }, [message]);
+  
+  useEffect(() => {
+  const el = textareaRef.current;
+  if (el) {
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }
+}, [message]);
 
   const handleLogout = async () => {
     try {
@@ -135,7 +131,7 @@ useEffect(() => {
         <div className="flex flex-col h-full py-3">
           <nav className="messages flex items-center w-full px-4">
             {/* Centered Heading */}
-            <div className="absolute md:left-1/2 left-1 md:transform transform-none md:-translate-x-1/2 -translate-x-0">
+            <div className="absolute md:left-1/2 left-3 md:transform transform-none md:-translate-x-1/2 -translate-x-0">
               <h1 className="text-3xl md:text-5xl font-bold">Messages</h1>
             </div>
 
@@ -178,7 +174,6 @@ useEffect(() => {
           </nav>
 
           <div
-            ref={messagesEndRef}
             className="messages-container hide-scrollbar flex-1 overflow-y-auto px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto"
           >
             {/* Render all messages */}
@@ -187,7 +182,7 @@ useEffect(() => {
                 key={index}
                 className={`chat ${msg.isSender ? "chat-end" : "chat-start"}`}
               >
-                <div className="chat-bubble bg-black text-white text-left">
+                <div className="chat-bubble bg-black text-white text-left text-sm">
                   {msg.message}
                 </div>
                 <div className="chat-footer opacity-50 text-xs text-white mt-1">
@@ -201,15 +196,21 @@ useEffect(() => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          <div className="input-container w-full flex items-center justify-center">
+          <div className="input-container sticky bottom-0 w-full flex items-center justify-center">
             <textarea
               ref={textareaRef}
-              rows="1"
-              className="max-h-[150px] w-[80%] sm:w-2/4 mr-1 outline-0 border py-[10px] px-2 border-white placeholder:text-white bg-transparent"
+              rows={1}
+              className="max-h-[150px] w-[80%] sm:w-2/4 mr-1 outline-0 border py-[10px] px-2 border-white placeholder:text-white bg-transparent hide-scrollbar"
               type="text"
               placeholder="Send message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+              }}
             />
             <button
               className="py-[12px] px-2 bg-transparent hover:bg-black text-white border border-white outline-0"

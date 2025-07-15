@@ -95,7 +95,7 @@ const Login = () => {
                 type="submit"
                 disabled={isSubmitting}
                 aria-busy={isSubmitting}
-                className="bg-black text-white px-2 py-2 btn border w-28 hover:bg-pink hover:text-white hover:border-pink disabled:cursor-not-allowed disabled:!bg-black disabled:text-white disabled:border-black dark:border-pink rounded-none"
+                className="bg-black text-white px-2 py-2 bttn text-sm border w-28 hover:bg-pink hover:text-white hover:border-pink disabled:cursor-not-allowed disabled:!bg-black disabled:text-white disabled:border-black dark:border-pink rounded-none"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-1">

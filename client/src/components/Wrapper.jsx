@@ -20,8 +20,9 @@ const Wrapper = () => {
         </div>
         <div className="w-full md:w-[55%] h-full flex flex-col items-center justify-start md:justify-center relative bg-white dark:bg-black transition-colors duration-700 ease-in-out">
           {themeLoaded && (
-            <label className="switch absolute -top-[9rem] md:top-5 right-3">
+            <label className="switch absolute -top-[9rem] md:top-5 right-3" htmlFor="themeToggle">
               <input
+                id="themeToggle"
                 type="checkbox"
                 onChange={changeTheme}
                 checked={theme === "dark"}

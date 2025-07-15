@@ -16,12 +16,12 @@ const Home = () => {
         </div>
         <div className="flex">
           <Link to="login">
-            <button className="btn uppercase font-bold text-sm py-3 mr-5 px-6 bg-[#1F1D1B] hover:text-[#1F1D1B] text-white hover:bg-white hover:border-black dark:hover:bg-transparent dark:hover:text-white dark:hover:border-pink">
+            <button className="bttn uppercase font-bold text-sm py-3 mr-5 px-6 bg-[#1F1D1B] hover:text-[#1F1D1B] text-white hover:bg-white hover:border-black border dark:hover:bg-transparent dark:hover:text-white dark:hover:border-pink dark:border-white shadow-transparent">
               Join LIVE
             </button>
           </Link>
           <Link to="login">
-            <button className="btn uppercase outline-none font-bold text-sm py-3 px-6 bg-[#ff1361] hover:bg-transparent hover:text-pink hover:border-[#ff1361] text-white dark:text-pink dark:bg-transparent dark:hover:border-pink dark:border-pink dark:hover:text-white">
+            <button className="bttn uppercase border outline-none font-bold text-sm py-3 px-6 bg-[#ff1361] hover:bg-transparent hover:text-pink hover:border-[#ff1361] text-white dark:text-pink dark:bg-transparent dark:hover:border-pink dark:border-pink dark:hover:text-white">
               Try Demo
             </button>
           </Link>
