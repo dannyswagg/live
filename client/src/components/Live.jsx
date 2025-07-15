@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTheme } from "../context/ThemeContext";
 import { FaMoon } from "react-icons/fa6";
 import { FaSun } from "react-icons/fa";
+import { IoSend } from "react-icons/io5";
 
 // const socket = io.connect("http://localhost:5174");
 const socket = io(import.meta.env.VITE_SOCKET_URL, {
@@ -17,6 +18,7 @@ const socket = io(import.meta.env.VITE_SOCKET_URL, {
 });
 
 function App() {
+  const textareaRef = useRef(null);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -55,6 +57,14 @@ function App() {
     // Cleanup the auth listener on component unmount
     return () => unsubscribe();
   }, [navigate]);
+
+    useEffect(() => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height =
+          textareaRef.current.scrollHeight + "px";
+      }
+    }, [message]);
 
   const handleLogout = async () => {
     try {
@@ -122,8 +132,8 @@ useEffect(() => {
         theme="dark"
       />
       <div className="wrapper bg-hero-gradient text-white text-center h-screen">
-        <div className="flex flex-col justify-between h-full py-3">
-          <nav className="messages flex items-center w-full relative px-4">
+        <div className="flex flex-col h-full py-3">
+          <nav className="messages flex items-center w-full px-4">
             {/* Centered Heading */}
             <div className="absolute md:left-1/2 left-1 md:transform transform-none md:-translate-x-1/2 -translate-x-0">
               <h1 className="text-3xl md:text-5xl font-bold">Messages</h1>
@@ -169,7 +179,7 @@ useEffect(() => {
 
           <div
             ref={messagesEndRef}
-            className="messages-container hide-scrollbar my-1 overflow-y-auto h-full md:h-[80%] px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto"
+            className="messages-container hide-scrollbar flex-1 overflow-y-auto px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto"
           >
             {/* Render all messages */}
             {messages.map((msg, index) => (
@@ -177,7 +187,7 @@ useEffect(() => {
                 key={index}
                 className={`chat ${msg.isSender ? "chat-end" : "chat-start"}`}
               >
-                <div className="chat-bubble bg-black text-white">
+                <div className="chat-bubble bg-black text-white text-left">
                   {msg.message}
                 </div>
                 <div className="chat-footer opacity-50 text-xs text-white mt-1">
@@ -191,24 +201,21 @@ useEffect(() => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          <div className="input-container">
-            <input
-              className="w-[80%] sm:w-2/4 outline-0 border border-white placeholder:text-white bg-transparent"
+          <div className="input-container w-full flex items-center justify-center">
+            <textarea
+              ref={textareaRef}
+              rows="1"
+              className="max-h-[150px] w-[80%] sm:w-2/4 mr-1 outline-0 border py-[10px] px-2 border-white placeholder:text-white bg-transparent"
               type="text"
               placeholder="Send message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  sendMessage();
-                }
-              }}
             />
             <button
-              className="py-[10px] px-2 bg-transparent hover:bg-black text-white border border-white outline-0"
+              className="py-[12px] px-2 bg-transparent hover:bg-black text-white border border-white outline-0"
               onClick={sendMessage}
             >
-              Send
+              <IoSend />
             </button>
           </div>
         </div>
