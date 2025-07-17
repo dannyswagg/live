@@ -196,7 +196,7 @@ useEffect(() => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          <div className="input-container sticky bottom-0 w-full flex items-center justify-center">
+          <div className="input-container sticky bottom-2 w-full flex items-center justify-center">
             <textarea
               ref={textareaRef}
               rows={1}
