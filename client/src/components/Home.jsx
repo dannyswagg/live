@@ -10,8 +10,9 @@ const Home = () => {
             <br /> LIV<span className="text-pink">E.</span>
           </h1>
           <p className="mt-4 text-md mb-5 text-pink">
-            Start a real conversation without revealing who you are. No names,
-            just voices.
+            Start a real conversation—no names, no profiles, just voices. Chat
+            freely with friends or strangers and connect on a deeper level,
+            without revealing who you are.
           </p>
         </div>
         <div className="flex">
