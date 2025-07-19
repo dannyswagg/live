@@ -22,7 +22,9 @@ const Register = () => {
         theme="dark"
       />
       <div className="py-5 px-5 w-full">
-        <h1 className="text-4xl md:text-5xl dark:text-pink text-black">Create Account</h1>
+        <h1 className="text-4xl md:text-5xl dark:text-pink text-black">
+          Create Account
+        </h1>
         <Formik
           initialValues={{ name: "", email: "", phone: "", password: "" }}
           validate={(values) => {
@@ -106,7 +108,7 @@ const Register = () => {
             <form onSubmit={handleSubmit} className="flex flex-col">
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
+                  className="bg-transparent text-black border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="text"
                   name="name"
                   placeholder="Your name"
@@ -121,7 +123,7 @@ const Register = () => {
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
+                  className="bg-transparent text-black border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="email"
                   name="email"
                   placeholder="Your email"
@@ -136,7 +138,7 @@ const Register = () => {
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
+                  className="bg-transparent text-black border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="text"
                   name="phone"
                   placeholder="Phone No."
@@ -151,7 +153,7 @@ const Register = () => {
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
+                  className="bg-transparent text-black border border-black focus:border-pink rounded-md outline-none w-full md:w-[70%] dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="password"
                   name="password"
                   placeholder="Create password"

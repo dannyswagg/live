@@ -64,7 +64,7 @@ const Login = () => {
             <form onSubmit={handleSubmit} className="flex flex-col">
               <div className="my-3">
                 <input
-                  className="border bg-transparent border-black rounded-md outline-none w-full focus:border-pink md:w-[70%] text-sm dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
+                  className="border bg-transparent border-black rounded-md outline-none w-full focus:border-pink md:w-[70%] text-sm text-black dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="email"
                   name="email"
                   onChange={handleChange}
@@ -78,7 +78,7 @@ const Login = () => {
               </div>
               <div className="my-3">
                 <input
-                  className="bg-transparent border border-black rounded-md outline-none focus:border-pink w-full md:w-[70%] text-sm dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
+                  className="bg-transparent border border-black rounded-md outline-none focus:border-pink w-full md:w-[70%] text-sm text-black dark:border-pink dark:bg-transparent dark:text-white dark:placeholder:text-white"
                   type="password"
                   name="password"
                   onChange={handleChange}
