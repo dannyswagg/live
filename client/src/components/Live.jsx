@@ -7,7 +7,7 @@ import { FaPowerOff } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTheme } from "../context/ThemeContext";
-import { FaMoon } from "react-icons/fa6";
+import { FaMoon, FaRestroom } from "react-icons/fa6";
 import { FaSun } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 
@@ -150,9 +150,9 @@ useEffect(() => {
                 <p
                   tabIndex={0}
                   role="button"
-                  className="uppercase cursor-pointer ml-2 text-md text-white font-bold bg-black rounded-full p-2"
+                  className="uppercase cursor-pointer w-10 h-10  ml-2 text-md text-white font-bold bg-black rounded-full p-2 items-center justify-center flex"
                 >
-                  CR
+                  <FaRestroom />
                 </p>
                 <div
                   tabIndex={0}
@@ -161,7 +161,7 @@ useEffect(() => {
                   <input
                     className="bg-transparent border outline-none border-white placeholder:text-white"
                     type="text"
-                    placeholder="Enter room"
+                    placeholder="Create/Enter Room"
                   />
                 </div>
               </div>
@@ -174,6 +174,7 @@ useEffect(() => {
           </nav>
 
           <div
+            ref={messagesEndRef}
             className="messages-container hide-scrollbar flex-1 overflow-y-auto px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto"
           >
             {/* Render all messages */}
@@ -193,14 +194,13 @@ useEffect(() => {
                 </div>
               </div>
             ))}
-            <div ref={messagesEndRef}></div>
           </div>
 
           <div className="input-container sticky bottom-2 w-full flex items-center justify-center">
             <textarea
               ref={textareaRef}
               rows={1}
-              className="max-h-[150px] w-[80%] sm:w-2/4 mr-1 outline-0 border py-[10px] px-2 border-white placeholder:text-white bg-transparent hide-scrollbar"
+              className="max-h-[150px] w-[80%] sm:w-2/4 mr-1 outline-none border py-[10px] px-2 border-white placeholder:text-white bg-transparent hide-scrollbar"
               type="text"
               placeholder="Send message"
               value={message}
