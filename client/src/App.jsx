@@ -1,4 +1,3 @@
-import React from "react";
 import Live from "./components/Live";
 import Wrapper from "./components/Wrapper";
 import Login from "./components/Login";
@@ -22,7 +21,6 @@ function App() {
     <>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="*" element={<PageNotFound />} />
           <Route path="/" element={<Wrapper />}>
             <Route index element={<Home />} />
             <Route
@@ -48,8 +46,6 @@ function App() {
               }
             />
           </Route>
-          <Route path="/live" element={<Live />} />
-          {/* Protect Chat Route */}
           <Route
             path="/live"
             element={
@@ -58,6 +54,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AnimatePresence>
     </>

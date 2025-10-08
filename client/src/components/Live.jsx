@@ -54,12 +54,14 @@ function App() {
     return () => unsubscribe();
   }, [navigate]);
   
-  useEffect(() => {
-  const el = textareaRef.current;
-  if (el) {
-    el.style.height = "auto";
-    el.style.height = `${el.scrollHeight}px`;
-  }
+const adjustTextareaHeight = (el) => {
+  if (!el) return;
+  el.style.height = "auto";
+  el.style.height = `${el.scrollHeight}px`;
+};
+
+useEffect(() => {
+  adjustTextareaHeight(textareaRef.current);
 }, [message]);
 
   const handleLogout = async () => {
