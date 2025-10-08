@@ -175,7 +175,7 @@ useEffect(() => {
 
           <div
             ref={messagesEndRef}
-            className="messages-container hide-scrollbar flex-1 overflow-y-auto px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto"
+            className="messages-container hide-scrollbar flex-1 overflow-y-auto px-4 md:px-0 w-full sm:w-[55%] md:[w-50%] mx-auto mb-[20px]"
           >
             {/* Render all messages */}
             {messages.map((msg, index) => (

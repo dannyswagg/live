@@ -6,6 +6,8 @@ import Register from "./components/Register";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./components/Home";
 import { AnimatePresence, motion } from "framer-motion";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PageNotFound from "./components/PageNotFound";
 
 const pageTransition = {
   initial: { opacity: 0, x: 100 },
@@ -20,6 +22,7 @@ function App() {
     <>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/" element={<Wrapper />}>
             <Route index element={<Home />} />
             <Route
@@ -46,6 +49,15 @@ function App() {
             />
           </Route>
           <Route path="/live" element={<Live />} />
+          {/* Protect Chat Route */}
+          <Route
+            path="/live"
+            element={
+              <ProtectedRoute>
+                <Live />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AnimatePresence>
     </>

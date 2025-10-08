@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import {useTheme} from "../context/ThemeContext"
 
-const Wrapper = () => {
+const Wrapper = ({children}) => {
    const { theme, changeTheme, themeLoaded } = useTheme();
   
   return (
@@ -33,7 +33,7 @@ const Wrapper = () => {
           </div>
         </div>
         <div className="w-full md:w-[55%] h-full flex flex-col items-center justify-start md:justify-center relative bg-white dark:bg-black transition-colors duration-700 ease-in-out overflow-scroll">
-          <Outlet />
+          {children || <Outlet />}
         </div>
       </div>
     </>
